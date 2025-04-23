@@ -19,5 +19,7 @@ namespace MiniProject.Models
         [Required]
         public int CategoryId { get; set; }
         public virtual Category? category { get; set; }
+        public virtual List<CartItems>? CartItems { get; set; }
+
     }
 }

@@ -3,7 +3,7 @@ using CloudinaryDotNet;
 
 namespace MiniProject.Services.CloudinaryService
 {
-    public class CloudinaryService
+    public class CloudinaryService:ICloudinaryService
     {
         private readonly Cloudinary _cloudinary;
         public CloudinaryService(IConfiguration configuration)

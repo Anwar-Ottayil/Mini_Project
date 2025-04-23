@@ -18,5 +18,6 @@ namespace MiniProject.Models
         public string Password { get; set; }
         public string? Role { get; set; }
         public bool IsBlocked { get; set; }
+        public virtual Cart? Cart { get; set; }
     }
 }

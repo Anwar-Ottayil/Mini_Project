@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniProject.Data;
 
@@ -10,9 +11,11 @@ using MiniProject.Data;
 namespace MiniProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250423074406_FifthMigration")]
+    partial class FifthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,51 +23,6 @@ namespace MiniProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("MiniProject.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("carts");
-                });
-
-            modelBuilder.Entity("MiniProject.Models.CartItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("cartItems");
-                });
 
             modelBuilder.Entity("MiniProject.Models.Category", b =>
                 {
@@ -175,36 +133,6 @@ namespace MiniProject.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("MiniProject.Models.Cart", b =>
-                {
-                    b.HasOne("MiniProject.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("MiniProject.Models.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MiniProject.Models.CartItems", b =>
-                {
-                    b.HasOne("MiniProject.Models.Cart", "Cart")
-                        .WithMany("cartitems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MiniProject.Models.Product", "Product")
-                        .WithMany("CartItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("MiniProject.Models.Product", b =>
                 {
                     b.HasOne("MiniProject.Models.Category", "category")
@@ -216,24 +144,9 @@ namespace MiniProject.Migrations
                     b.Navigation("category");
                 });
 
-            modelBuilder.Entity("MiniProject.Models.Cart", b =>
-                {
-                    b.Navigation("cartitems");
-                });
-
             modelBuilder.Entity("MiniProject.Models.Category", b =>
                 {
                     b.Navigation("products");
-                });
-
-            modelBuilder.Entity("MiniProject.Models.Product", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("MiniProject.Models.User", b =>
-                {
-                    b.Navigation("Cart");
                 });
 #pragma warning restore 612, 618
         }

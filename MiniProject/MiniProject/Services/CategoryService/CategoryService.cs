@@ -6,7 +6,7 @@ using MiniProject.Models;
 
 namespace MiniProject.Services.CategoryService
 {
-    public class CategoryService
+    public class CategoryService:ICategoryService
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;

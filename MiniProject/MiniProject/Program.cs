@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MiniProject.Data;
 using MiniProject.Mapper;
+using MiniProject.MiddleWare;
+using MiniProject.Services.CartService;
 using MiniProject.Services.CategoryService;
 using MiniProject.Services.CloudinaryService;
 using MiniProject.Services.LoginService;
@@ -25,6 +27,7 @@ namespace MiniProject
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
+            builder.Services.AddScoped<ICartService, CartService>();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -100,7 +103,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
             app.UseAuthorization();
 
-
+            app.UseMiddleware<GetUserIdMiddleWare>();
             app.MapControllers();
 
             app.Run();

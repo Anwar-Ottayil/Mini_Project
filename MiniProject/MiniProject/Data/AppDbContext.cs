@@ -11,6 +11,9 @@ namespace MiniProject.Data
         public DbSet<User> users { get; set; }
         public DbSet<Category> category { get; set; }
         public DbSet<Product> product { get; set; }
+        public DbSet<Cart> carts { get; set; }
+        public DbSet<CartItems> cartItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -32,6 +35,18 @@ namespace MiniProject.Data
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, Name = "Electronics" }
                 );
+            modelBuilder.Entity<User>()
+               .HasOne(x => x.Cart)
+               .WithOne(y => y.User)
+               .HasForeignKey<Cart>(x => x.UserId);
+            modelBuilder.Entity<Cart>()
+                .HasMany(q => q.cartitems)
+                .WithOne(w => w.Cart)
+                .HasForeignKey(i => i.CartId);
+            modelBuilder.Entity<CartItems>()
+                .HasOne(f => f.Product)
+                .WithMany(o => o.CartItems)
+                .HasForeignKey(i => i.ProductId);
 
         }
     }

@@ -13,6 +13,8 @@ namespace MiniProject.Mapper
         CreateMap<Category,CategoryViewDto>().ReverseMap();
         CreateMap<Product, ProductViewDto>().ReverseMap();
         CreateMap<AddProductDto,Product>().ReverseMap();
+        CreateMap<CartItems, CartViewDto>().ReverseMap();
+
         }
 
     }
